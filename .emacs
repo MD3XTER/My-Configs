@@ -134,16 +134,14 @@ there's a region, all lines that region covers will be duplicated."
 ; set font size to 10
 (set-face-attribute 'default nil :font "Monospace-9")
 
-; remove toolbar,scrollbar and menubar
+; fullscreen
+(set-frame-parameter nil 'fullscreen 'fullboth)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
 ; set default theme
 (load-theme 'monokai t) 
-
-; start in full screen mode
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ; undo and redo
 (global-undo-tree-mode 1)
