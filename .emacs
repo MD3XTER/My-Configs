@@ -259,9 +259,6 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key (kbd "<f2>")   'bm-next)
 (global-set-key (kbd "<S-f2>") 'bm-previous)
 
-; idnent buffer
-(global-set-key (kbd "C-M-\\") 'iwb)
-
 ; switch-window
 (global-set-key (kbd "C-x o") 'switch-window)
 
