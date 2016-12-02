@@ -1,0 +1,93 @@
+Manipulating text:
+[M-w] - copy
+[C-w] - cut
+[C-y][M-y] - paste
+[C-S-backspace] - delete line
+[M-UP/DOWN] - move line up/down
+[C-c d] - dublicate line
+[C-space] - set mark
+[C-o] - new line before point
+[M-o] - new line after point
+[C-k] - delete line after point
+[M-k] - delete line before point
+[C-c M-w] - copy line
+[C-c C-w] - cut line
+[C-c /] - comment line
+[M-;] - comment region
+[C-x h] - mark all
+[C-c l] - mark entire line
+[M-@] - mark word
+[C-c M-@] - mark next like this
+[ESC->] - end of line
+[ESC-<] - begin of line
+
+Jedi:
+
+[M-LEFT] - indent to left
+[M-RIGHT] - indent to right
+[M-.] - goto-definition
+[M-,] - goto-definition-pop-marker
+[M-?] - show-doc
+[M-/] - get-in-function-call
+
+Buffers:
+[C-x C-v] - reload file
+[C-c `] - Maximize Buffer
+[C-x k] - kill current buffer
+[C-x o] - switch between windows
+[C-x b] - siwtch between buffers
+[C-x left/right] - move between buffers
+[C-x 1] - close all buffers without active buffer
+[C-x 2] - split window verticaly
+[C-x 3] - split window horizontaly
+
+Projectile:
+[C-c p s] - Switch to project
+[C-c p f] - List files in project
+[C-c p k] - Kill all buffers for project
+
+Misc:
+[C-x C-r] - open recent files
+[C-x C-f] - open file/dir
+[C-s] - find forward in buffer
+[C-r] - find backward in buffer
+[M-x multi-term] - open terminal
+[C-/] - undo
+[C-?] - redo
+[C-x U] - open undo-tree
+
+Org-Mode:
+[C-c C-t] - change from {done, todo}
+[M-Shift-Ret] - add new task
+[Shift-Tab] - show/hide tasks
+[C-c C-s] - run org-schedule
+[C-c a a] - show org-agenda
+[S-UP/DOWN] - change priority
+
+NeoTree:
+[g] Refresh
+[A] Maximize/Minimize the NeoTree Window
+[H] Toggle display hidden files
+[C-c C-n] Create a file or create a directory if filename ends with a ‘/’
+[C-c C-d] Delete a file or a directory
+[C-c C-r] Rename a file or a directory
+[C-c C-c] Change the root directory
+
+Workgroups2:
+[<C-c z> c  ] - create workgroup
+[<C-c z> A  ] - rename workgroup
+[<C-c z> k  ] - kill workgroup
+[<C-c z> v  ] - switch to workgroup
+[<C-c z> C-s] - save session
+[<C-c z> C-f] - load session
+
+HighlightSymbol:
+[C-F3] - highligh word
+[F3] - next highlighed word
+[S-F3] - next highlighed word
+[M-F3] - next highlighed word
+
+BookMarks:
+[C-F2] - toggle
+[F2] - next
+[S-F2] - previous
