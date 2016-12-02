@@ -1,7 +1,7 @@
 ;--------packages-config--------
 
 ; list the packages you want
-(setq package-list '(monokai-theme 
+(setq package-list '(monokai-theme
          drag-stuff
          undo-tree
          multi-term
@@ -15,12 +15,14 @@
          magit
          jedi
          epc
-         auto-complete         
+         auto-complete
          projectile
          csv-mode
          switch-window
          smartparens
          desktop+
+         electric-spacing
+         electric-case
          multiple-cursors))
 
 ; list the repositories containing them
@@ -30,7 +32,7 @@
 ; activate all the packages (in particular autoloads)
 (package-initialize)
 
-; fetch the list of packages available 
+; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -112,6 +114,11 @@ there's a region, all lines that region covers will be duplicated."
 (setq backup-directory-alist (list (cons ".*" backup-dir)))
 (setq auto-save-list-file-prefix autosave-dir)
 (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+
+; php-mode
+(autoload 'php-mode "php-mode" "Major mode for editing php code." t)
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+(add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
 ;--------personal-config--------
 
 ; set python default indentation tabs
@@ -120,16 +127,8 @@ there's a region, all lines that region covers will be duplicated."
 	    (setq-default indent-tabs-mode t)
 	    (setq-default tab-width 4)
 	    (setq-default py-indent-tabs-mode t)
+	    (add-hook 'python-mode-hook #'electric-spacing-mode)
     (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
-
-; indent buffer
-(defun iwb ()
-  "indent whole buffer"
-  (interactive)
-  (delete-trailing-whitespace)
-  (indent-region (point-min) (point-max) nil)
-  (untabify (point-min) (point-max))
-  (print "buffer indented"))
 
 ; set font size to 10
 (set-face-attribute 'default nil :font "Monospace-9")
@@ -141,7 +140,7 @@ there's a region, all lines that region covers will be duplicated."
 (scroll-bar-mode -1)
 
 ; set default theme
-(load-theme 'monokai t) 
+(load-theme 'monokai t)
 
 ; undo and redo
 (global-undo-tree-mode 1)
@@ -177,7 +176,7 @@ there's a region, all lines that region covers will be duplicated."
 (ido-mode 1)
 (ido-vertical-mode 1)
 
-; enable elpy 
+; enable elpy
 (elpy-enable)
 
 ;; Auto-complete
@@ -197,8 +196,8 @@ there's a region, all lines that region covers will be duplicated."
 (add-hook 'python-mode-hook 'jedi-config:setup-keys)
 
 ; enable line-number-mode
-(defun my-python-mode-hook () 
-  (linum-mode 1)) 
+(defun my-python-mode-hook ()
+  (linum-mode 1))
 (add-hook 'python-mode-hook 'my-python-mode-hook)
 
 ; enable smart-parens
@@ -225,10 +224,13 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key "\M-k" '(lambda () (interactive) (kill-line 0)) )
 
 ; maximize window
-(global-set-key "\C-x\ \`" 'toggle-maximize-buffer) 
+(global-set-key "\C-x\ \`" 'toggle-maximize-buffer)
 
 ; copy line
 (global-set-key "\C-c\M-w" 'copy-line)
+
+; delete parenthesis
+(global-set-key "\C-c\M-\\" 'sp-splice-sexp)
 
 ; cut line
 (global-set-key "\C-c\C-w" 'quick-cut-line)
@@ -237,17 +239,17 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key "\C-c\ \/" 'toggle-comment-on-line)
 
 ; select line
-(global-set-key "\C-c\l" 'select-entire-line)
+(global-set-key "\C-x\ l" 'select-entire-line)
 
 ; org-mode
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
-; neotree 
+; neotree
 (global-set-key [f8] 'neotree-toggle)
 
 ; multiple-cursors
-(global-set-key (kbd "C-c M-@") 'mc/mark-all-words-like-this)
+(global-set-key (kbd "C-c M-@") 'mc/mark-next-like-this)
 
 ; ido-mode
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
@@ -269,3 +271,16 @@ there's a region, all lines that region covers will be duplicated."
   (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
   (local-set-key (kbd "M-?") 'jedi:show-doc)
   (local-set-key (kbd "M-/") 'jedi:get-in-function-call))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(fill-column 120)
+ '(org-startup-truncated t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
