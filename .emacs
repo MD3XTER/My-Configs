@@ -5,7 +5,6 @@
          drag-stuff
          undo-tree
          multi-term
-         init-open-recentf
          org
          neotree
          rainbow-delimiters
@@ -21,8 +20,7 @@
          switch-window
          smartparens
          desktop+
-         electric-spacing
-         electric-case
+         ; electric-spacing
          multiple-cursors))
 
 ; list the repositories containing them
@@ -40,6 +38,7 @@
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
+
 ;--------prebuild-config--------
 
 ; maximize buffer
@@ -119,7 +118,6 @@ there's a region, all lines that region covers will be duplicated."
 (autoload 'php-mode "php-mode" "Major mode for editing php code." t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
-;--------personal-config--------
 
 ; set python default indentation tabs
 (add-hook 'python-mode-hook
@@ -127,13 +125,15 @@ there's a region, all lines that region covers will be duplicated."
 	    (setq-default indent-tabs-mode t)
 	    (setq-default tab-width 4)
 	    (setq-default py-indent-tabs-mode t)
-	    (add-hook 'python-mode-hook #'electric-spacing-mode)
+	    ; (add-hook 'python-mode-hook #'electric-spacing-mode) !!!!!!!!!!!!!!!!!!!!!!!!!!!!
     (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+
+;--------personal-config--------
 
 ; set font size to 10
 (set-face-attribute 'default nil :font "Monospace-9")
 
-; fullscreen
+; fullscreen on start
 (set-frame-parameter nil 'fullscreen 'fullboth)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -147,11 +147,6 @@ there's a region, all lines that region covers will be duplicated."
 
 ; set multi-term options
 (setq multi-term-program "/bin/bash")
-
-; recent files config
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-menu-items 25)
 
 ; replace marked text
 (delete-selection-mode 1)
@@ -176,6 +171,20 @@ there's a region, all lines that region covers will be duplicated."
 (ido-mode 1)
 (ido-vertical-mode 1)
 
+; enable line-number-mode
+(defun my-python-mode-hook ()
+  (linum-mode 1))
+(add-hook 'python-mode-hook 'my-python-mode-hook)
+
+; enable smart-parens
+(smartparens-global-mode 1)
+
+; enable projectile
+(projectile-global-mode)
+
+; disable sound
+(setq ring-bell-function 'ignore)
+
 ; enable elpy
 (elpy-enable)
 
@@ -195,26 +204,10 @@ there's a region, all lines that region covers will be duplicated."
 ;; Use custom jedi-keybinds
 (add-hook 'python-mode-hook 'jedi-config:setup-keys)
 
-; enable line-number-mode
-(defun my-python-mode-hook ()
-  (linum-mode 1))
-(add-hook 'python-mode-hook 'my-python-mode-hook)
-
-; enable smart-parens
-(smartparens-global-mode 1)
-
-; enable subword-mode
-(subword-mode 1)
-
-; enable projectile
-(projectile-global-mode)
 ;--------key_bindings-config--------
 
-; duplicate line C-c M-d
+; duplicate line C-c d
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
-
-; open recent files
-(global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 ; new line
 (global-set-key (kbd "C-o") (lambda () (interactive)(beginning-of-line)(open-line 1)))
@@ -250,9 +243,6 @@ there's a region, all lines that region covers will be duplicated."
 
 ; multiple-cursors
 (global-set-key (kbd "C-c M-@") 'mc/mark-next-like-this)
-
-; ido-mode
-(setq ido-vertical-define-keys 'C-n-and-C-p-only)
 
 ; boook-mark
 (global-set-key (kbd "<C-f2>") 'bm-toggle)
