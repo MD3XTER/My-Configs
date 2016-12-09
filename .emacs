@@ -20,7 +20,7 @@
          switch-window
          smartparens
          desktop+
-         ; electric-spacing
+         electric-spacing
          multiple-cursors))
 
 ; list the repositories containing them
@@ -125,8 +125,8 @@ there's a region, all lines that region covers will be duplicated."
 	    (setq-default indent-tabs-mode t)
 	    (setq-default tab-width 4)
 	    (setq-default py-indent-tabs-mode t)
-	    ; (add-hook 'python-mode-hook #'electric-spacing-mode) !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+	    (add-hook 'python-mode-hook #'electric-spacing-mode)
+      (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
 ;--------personal-config--------
 
