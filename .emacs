@@ -8,7 +8,6 @@
          org
          neotree
          rainbow-delimiters
-         auto-package-update
          ido-vertical-mode
          bm
          magit
@@ -20,6 +19,7 @@
          switch-window
          smartparens
          desktop+
+         paradox
          electric-spacing
          multiple-cursors))
 
@@ -165,7 +165,7 @@ there's a region, all lines that region covers will be duplicated."
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ; update packages at start
-(auto-package-update-maybe)
+(paradox-upgrade-packages)
 
 ; ido-mode activate
 (ido-mode 1)
