@@ -12,7 +12,9 @@
          bm
          magit
          jedi
+         flycheck
          epc
+         elpy
          auto-complete
          projectile
          csv-mode
@@ -126,6 +128,7 @@ there's a region, all lines that region covers will be duplicated."
 	    (setq-default tab-width 4)
 	    (setq-default py-indent-tabs-mode t)
 	    (add-hook 'python-mode-hook #'electric-spacing-mode)
+      (add-hook 'python-mode-hook #'flycheck-mode)
       (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
 ;--------personal-config--------
@@ -164,9 +167,6 @@ there's a region, all lines that region covers will be duplicated."
 ; start rainbow-delimiters
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
-; update packages at start
-(paradox-upgrade-packages)
-
 ; ido-mode activate
 (ido-mode 1)
 (ido-vertical-mode 1)
@@ -184,9 +184,6 @@ there's a region, all lines that region covers will be duplicated."
 
 ; disable sound
 (setq ring-bell-function 'ignore)
-
-; enable elpy
-(elpy-enable)
 
 ;; Auto-complete
 (ac-config-default)
@@ -263,8 +260,7 @@ there's a region, all lines that region covers will be duplicated."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(fill-column 120)
- '(org-startup-truncated t))
+ '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
