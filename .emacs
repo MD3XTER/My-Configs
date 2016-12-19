@@ -127,7 +127,7 @@ there's a region, all lines that region covers will be duplicated."
 	    (setq-default indent-tabs-mode t)
 	    (setq-default tab-width 4)
 	    (setq-default py-indent-tabs-mode t)
-	    (add-hook 'python-mode-hook #'electric-spacing-mode)
+	    (add-hook 'python-mode-hook 'electric-spacing-mode)
       (add-hook 'python-mode-hook #'flycheck-mode)
       (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
@@ -144,6 +144,9 @@ there's a region, all lines that region covers will be duplicated."
 
 ; set default theme
 (load-theme 'monokai t)
+
+; enable elpy
+(elpy-enable)
 
 ; undo and redo
 (global-undo-tree-mode 1)
