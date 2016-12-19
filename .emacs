@@ -145,9 +145,6 @@ there's a region, all lines that region covers will be duplicated."
 ; set default theme
 (load-theme 'monokai t)
 
-; enable elpy
-(elpy-enable)
-
 ; undo and redo
 (global-undo-tree-mode 1)
 
@@ -173,6 +170,9 @@ there's a region, all lines that region covers will be duplicated."
 ; ido-mode activate
 (ido-mode 1)
 (ido-vertical-mode 1)
+
+; enable elpy
+(elpy-enable)
 
 ; enable line-number-mode
 (defun my-python-mode-hook ()
