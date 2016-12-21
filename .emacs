@@ -188,6 +188,9 @@ there's a region, all lines that region covers will be duplicated."
 ; disable sound
 (setq ring-bell-function 'ignore)
 
+; auto refresh file
+(global-auto-revert-mode)
+
 ;; Auto-complete
 (ac-config-default)
 (setq ac-show-menu-immediately-on-auto-complete t)
