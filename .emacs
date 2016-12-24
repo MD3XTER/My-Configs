@@ -116,11 +116,6 @@ there's a region, all lines that region covers will be duplicated."
 (setq auto-save-list-file-prefix autosave-dir)
 (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
-; php-mode
-(autoload 'php-mode "php-mode" "Major mode for editing php code." t)
-(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
-(add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
-
 ; set python default indentation tabs
 (add-hook 'python-mode-hook
     (lambda ()
@@ -145,7 +140,7 @@ there's a region, all lines that region covers will be duplicated."
 ; set default theme
 (load-theme 'monokai t)
 
-; undo and redo
+; undo tree
 (global-undo-tree-mode 1)
 
 ; set multi-term options
@@ -191,14 +186,14 @@ there's a region, all lines that region covers will be duplicated."
 ; auto refresh file
 (global-auto-revert-mode)
 
-;; Auto-complete
+;; auto-complete
 (ac-config-default)
 (setq ac-show-menu-immediately-on-auto-complete t)
 
-;; Hook up to autocomplete
+;; hook up to autocomplete
 (add-to-list 'ac-sources 'ac-source-jedi-direct)
 
-;; Enable Jedi setup on mode start
+;; enable Jedi setup on mode start
 (add-hook 'python-mode-hook 'jedi:setup)
 ;; Don't let jedi-tooltip show up automatically
 ;;(setq jedi:get-in-function-call-delay 10000000)
@@ -245,7 +240,7 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key [f8] 'neotree-toggle)
 
 ; multiple-cursors
-(global-set-key (kbd "C-c M-@") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-d") 'mc/mark-next-like-this-word)
 
 ; boook-mark
 (global-set-key (kbd "<C-f2>") 'bm-toggle)

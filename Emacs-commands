@@ -8,21 +8,21 @@ Manipulating text:
 [C-space] - set mark
 [C-o] - new line before point
 [M-o] - new line after point
-[C-k] - delete line after point
-[M-k] - delete line before point
+[C-k] - delete after point
+[M-k] - delete before point
 [C-c M-w] - copy line
 [C-c C-w] - cut line
 [C-c /] - comment line
 [M-;] - comment region
 [C-x h] - mark all
-[C-c l] - mark entire line
-[M-@] - mark word
-[C-c M-@] - mark next like this
+[C-x l] - mark entire line
+[C-c M-@] - mark next like this word
 [ESC->] - end of line
 [ESC-<] - begin of line
+[C-/] - undo
+[C-?] - redo
 
 Jedi:
-
 [M-LEFT] - indent to left
 [M-RIGHT] - indent to right
 [M-.] - goto-definition
@@ -37,7 +37,7 @@ Buffers:
 [C-x o] - switch between windows
 [C-x b] - siwtch between buffers
 [C-x left/right] - move between buffers
-[C-x 1] - close all buffers without active buffer
+[C-x 1] - close all buffers instead of active buffer
 [C-x 2] - split window verticaly
 [C-x 3] - split window horizontaly
 
@@ -47,10 +47,10 @@ Projectile:
 [C-c p k] - Kill all buffers for project
 
 Misc:
-[C-x C-r] - open recent files
 [C-x C-f] - open file/dir
 [C-s] - find forward in buffer
 [C-r] - find backward in buffer
+[C-c C-j] - got to definition
 [M-x multi-term] - open terminal
 [C-/] - undo
 [C-?] - redo
@@ -72,14 +72,6 @@ NeoTree:
 [C-c C-d] Delete a file or a directory
 [C-c C-r] Rename a file or a directory
 [C-c C-c] Change the root directory
-
-Workgroups2:
-[<C-c z> c  ] - create workgroup
-[<C-c z> A  ] - rename workgroup
-[<C-c z> k  ] - kill workgroup
-[<C-c z> v  ] - switch to workgroup
-[<C-c z> C-s] - save session
-[<C-c z> C-f] - load session
 
 HighlightSymbol:
 [C-F3] - highligh word
