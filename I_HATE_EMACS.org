@@ -1,0 +1,17 @@
+* Fucking Bugs!!1
+** DONE [M-Left] -> delete indentation
+   CLOSED: [2016-11-24 Thu 17:19]
+** DONE [M-Up/Down] -> indent multiple lines not working
+   CLOSED: [2016-11-25 Fri 09:33]
+** DONE [C-c M-@] -> mark same words -> modify to select one after one
+   CLOSED: [2016-11-25 Fri 09:48]
+** DONE [C-x l] -> mark entire line
+   CLOSED: [2016-11-25 Fri 09:54]
+** DONE [M-y] C-[Backspace/Delete] -> don't save in buffer, just delete
+   CLOSED: [2016-11-25 Fri 10:33]
+** DONE smartparens is stupid
+** DONE [120] disable > 80 char error
+   CLOSED: [2016-12-02 Fri 13:14]
+** DONE [M-x `]maximize buffer
+** DONE word navigation is stupid -> separate lower and upper words
+   CLOSED: [2016-12-24 Sat 19:34]
