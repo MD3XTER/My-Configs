@@ -11,6 +11,9 @@
          ido-vertical-mode
          bm
          magit
+	 web-mode
+	 js2-mode
+	 php-mode
          jedi
          flycheck
          epc
@@ -40,8 +43,7 @@
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
-
-;--------prebuild-config--------
+;--------prebuild-functions--------
 
 ; maximize buffer
 (defun toggle-maximize-buffer () "Maximize buffer"
@@ -109,12 +111,10 @@ there's a region, all lines that region covers will be duplicated."
         (setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
 
-; move tmp file to another dir
-(defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
-(defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
-(setq backup-directory-alist (list (cons ".*" backup-dir)))
-(setq auto-save-list-file-prefix autosave-dir)
-(setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+; line-number-mode
+(defun show-lines ()
+  (linum-mode 1))
+;--------python-config--------
 
 ; set python default indentation tabs
 (add-hook 'python-mode-hook
@@ -122,14 +122,55 @@ there's a region, all lines that region covers will be duplicated."
 	    (setq-default indent-tabs-mode t)
 	    (setq-default tab-width 4)
 	    (setq-default py-indent-tabs-mode t)
-	    (add-hook 'python-mode-hook 'electric-spacing-mode)
-      (add-hook 'python-mode-hook #'flycheck-mode)
-      (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+		(add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
-;--------personal-config--------
+; enable line-number-mode
+(add-hook 'python-mode-hook 'show-lines)
 
-; set font size to 10
-(set-face-attribute 'default nil :font "Monospace-9")
+; enable electric spacing mode
+(add-hook 'python-mode-hook 'electric-spacing-mode)
+
+; enable flychek
+(add-hook 'python-mode-hook 'flycheck-mode)
+
+;; enable Jedi setup on mode start
+(add-hook 'python-mode-hook 'jedi:setup)
+;; Don't let jedi-tooltip show up automatically
+;;(setq jedi:get-in-function-call-delay 10000000)
+;; Start jedi-completion at method dot
+(setq jedi:complete-on-dot t)
+;; Use custom jedi-keybinds
+(add-hook 'python-mode-hook 'jedi-config:setup-keys)
+
+; jedi
+(defun jedi-config:setup-keys ()
+(local-set-key (kbd "M-.") 'jedi:goto-definition)
+  (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
+  (local-set-key (kbd "M-?") 'jedi:show-doc)
+  (local-set-key (kbd "M-/") 'jedi:get-in-function-call))
+;--------web-config--------
+
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+(setq web-mode-engines-alist
+      '(("php"    . "\\.phtml\\'")
+        ("blade"  . "\\.blade\\."))
+)
+;--------global-config--------
+
+; move tmp file to another dir
+(defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
+(defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
+(setq backup-directory-alist (list (cons ".*" backup-dir)))
+(setq auto-save-list-file-prefix autosave-dir)
+(setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
 ; fullscreen on start
 (set-frame-parameter nil 'fullscreen 'fullboth)
@@ -140,7 +181,7 @@ there's a region, all lines that region covers will be duplicated."
 ; set default theme
 (load-theme 'monokai t)
 
-; undo tree
+; enable undo tree
 (global-undo-tree-mode 1)
 
 ; set multi-term options
@@ -153,26 +194,21 @@ there's a region, all lines that region covers will be duplicated."
 (drag-stuff-global-mode 1)
 (drag-stuff-define-keys)
 
-; activate org-mode
+; enable org-mode
 (setq org-log-done t)
 
-; start neotree
+; enable neotree
 (setq neo-smart-open t)
 
-; start rainbow-delimiters
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+; enable rainbow-delimiters
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-; ido-mode activate
+; enable ido-mode
 (ido-mode 1)
 (ido-vertical-mode 1)
 
 ; enable elpy
 (elpy-enable)
-
-; enable line-number-mode
-(defun my-python-mode-hook ()
-  (linum-mode 1))
-(add-hook 'python-mode-hook 'my-python-mode-hook)
 
 ; enable smart-parens
 (smartparens-global-mode 1)
@@ -189,20 +225,10 @@ there's a region, all lines that region covers will be duplicated."
 ;; auto-complete
 (ac-config-default)
 (setq ac-show-menu-immediately-on-auto-complete t)
-
 ;; hook up to autocomplete
 (add-to-list 'ac-sources 'ac-source-jedi-direct)
 
-;; enable Jedi setup on mode start
-(add-hook 'python-mode-hook 'jedi:setup)
-;; Don't let jedi-tooltip show up automatically
-;;(setq jedi:get-in-function-call-delay 10000000)
-;; Start jedi-completion at method dot
-(setq jedi:complete-on-dot t)
-;; Use custom jedi-keybinds
-(add-hook 'python-mode-hook 'jedi-config:setup-keys)
-
-;--------key_bindings-config--------
+;--------key-bindings-config--------
 
 ; duplicate line C-c d
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
@@ -249,18 +275,16 @@ there's a region, all lines that region covers will be duplicated."
 
 ; switch-window
 (global-set-key (kbd "C-x o") 'switch-window)
+;--------key-bindings-config--------
 
-; jedi
-(defun jedi-config:setup-keys ()
-(local-set-key (kbd "M-.") 'jedi:goto-definition)
-  (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
-  (local-set-key (kbd "M-?") 'jedi:show-doc)
-  (local-set-key (kbd "M-/") 'jedi:get-in-function-call))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (multiple-cursors electric-spacing paradox desktop+ smartparens switch-window csv-mode projectile elpy flycheck jedi magit bm ido-vertical-mode rainbow-delimiters neotree multi-term undo-tree drag-stuff monokai-theme)))
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
