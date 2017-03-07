@@ -9,6 +9,7 @@
          neotree
          rainbow-delimiters
          ido-vertical-mode
+	 exec-path-from-shell
          bm
          magit
 	 web-mode
@@ -44,6 +45,25 @@
   (unless (package-installed-p package)
     (package-install package)))
 ;--------prebuild-functions--------
+
+; start image bug
+(defun use-fancy-splash-screens-p ()
+  "Return t if fancy splash screens should be used."
+  (when (and (display-graphic-p)
+	     (or (and (display-color-p)
+		      (image-type-available-p 'xpm))
+		 (image-type-available-p 'pbm)))
+    (let ((frame (fancy-splash-frame)))
+      (when frame
+	(let* ((img (create-image (fancy-splash-image-file)))
+	       (image-height (and img (cdr (image-size img nil frame))))
+	       ;; We test frame-height so that, if the frame is split
+	       ;; by displaying a warning, that doesn't cause the normal
+	       ;; splash screen to be used.
+	       (frame-height (1- (frame-height frame))))
+	  ;; The original value added to the `image-height' for the test was 19; however,
+	  ;; that causes the test to fail on X11 by about 1.5 -- so use 17 instead.
+	  (> frame-height (+ image-height 17)))))))
 
 ; maximize buffer
 (defun toggle-maximize-buffer () "Maximize buffer"
@@ -174,9 +194,18 @@ there's a region, all lines that region covers will be duplicated."
 
 ; fullscreen on start
 (set-frame-parameter nil 'fullscreen 'fullboth)
+(toggle-frame-fullscreen)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+
+; set font-size
+;(set-face-attribute 'default nil :font "Monospace-12")
+(set-face-attribute 'default nil :height 130)
+
+; set exec-path
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 ; set default theme
 (load-theme 'monokai t)
@@ -185,7 +214,7 @@ there's a region, all lines that region covers will be duplicated."
 (global-undo-tree-mode 1)
 
 ; set multi-term options
-(setq multi-term-program "/bin/bash")
+(setq multi-term-program "/usr/local/bin/fish")
 
 ; replace marked text
 (delete-selection-mode 1)
