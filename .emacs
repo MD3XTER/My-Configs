@@ -256,10 +256,16 @@ there's a region, all lines that region covers will be duplicated."
 (setq ac-show-menu-immediately-on-auto-complete t)
 ;; hook up to autocomplete
 (add-to-list 'ac-sources 'ac-source-jedi-direct)
-
 ;--------key-bindings-config--------
 
-; duplicate line C-c d
+; fix fn-arrows
+(define-key global-map [home] 'beginning-of-line)
+(define-key global-map [end] 'end-of-line)
+(global-set-key (kbd "<prior>") 'beginning-of-buffer)
+(global-set-key (kbd "<next>") 'end-of-buffer)
+
+
+;duplicate line C-c d
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 
 ; new line
