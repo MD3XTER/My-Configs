@@ -1,11 +1,5 @@
 ;--------packages-config--------
 
-
-
-
-
-
-
 ; list the packages you want
 (setq package-list '(monokai-theme
          drag-stuff
