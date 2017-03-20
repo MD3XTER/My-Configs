@@ -142,8 +142,7 @@ there's a region, all lines that region covers will be duplicated."
 	    (setq-default indent-tabs-mode t)
 	    (setq-default tab-width 4)
 	    (setq-default py-indent-tabs-mode t)
-		(add-to-list 'write-file-functions 'delete-trailing-whitespace)))
-
+	    (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 ; enable line-number-mode
 (add-hook 'python-mode-hook 'show-lines)
 
@@ -168,6 +167,12 @@ there's a region, all lines that region covers will be duplicated."
   (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
   (local-set-key (kbd "M-?") 'jedi:show-doc)
   (local-set-key (kbd "M-/") 'jedi:get-in-function-call))
+
+;--------c-config--------
+
+; enable line-number-mode
+(add-hook 'c-mode-hook 'show-lines)
+
 ;--------web-config--------
 
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
@@ -200,7 +205,7 @@ there's a region, all lines that region covers will be duplicated."
 (scroll-bar-mode -1)
 
 ; set font-size
-;(set-face-attribute 'default nil :font "Monospace-12")
+(set-face-attribute 'default nil :font "PragmataPro Mono-13")
 (set-face-attribute 'default nil :height 130)
 
 ; set exec-path
