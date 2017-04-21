@@ -190,6 +190,14 @@ there's a region, all lines that region covers will be duplicated."
 )
 ;--------global-config--------
 
+; fix linum and auto-combplete bug
+(add-hook 'linum-before-update-hook
+          '(lambda ()
+             (when auto-complete-mode
+               (if (ac-menu-live-p)
+                   (setq linum-suppress-updates t)
+                 (setq linum-suppress-updates nil)))))
+
 ; move tmp file to another dir
 (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
 (defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
